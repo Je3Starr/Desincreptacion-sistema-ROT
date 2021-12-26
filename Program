@@ -1,0 +1,58 @@
+using System;
+using System.Linq;
+using System.Threading;
+
+namespace rot
+{
+    class Program
+    {
+        static string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        static bool f = true;
+        static void Main(string[] args)
+        {
+            try
+            {
+            Console.WriteLine("La clave deben de ser caracteres en mayusculas");
+            Console.WriteLine("Presione enter para iniciar");
+            do
+            {
+                if (Console.ReadLine() == "X")
+                {
+                    f = false;
+                }
+                else
+                {
+                    Console.WriteLine("Ingrese clave ");
+                    char[] clave = Console.ReadLine().ToCharArray();
+                    Console.WriteLine("Ingrese numero de cifrado ");
+                    int Num = Convert.ToInt32(Console.ReadLine());
+                    char[] clavecorrecta1 = new char[clave.Length];
+                    for (int i = 0; i < clave.Length; i++)
+                    {
+                        clavecorrecta1[i] = EncontrarClaveCorrecta(clave[i], Num);
+                        Console.Write(clavecorrecta1[i].ToString());
+                    }
+                    Console.WriteLine(" ");
+                    Console.WriteLine("Presione enter para ingresar otra clave");
+                }
+            }
+            while (f);
+        }
+            catch 
+            {
+
+            }
+        }
+
+        static char  EncontrarClaveCorrecta(char cmd,int ROT)
+        {
+            int ubi = alpha.IndexOf(cmd);
+            int pos = ubi + ROT;
+            if (pos > 36)
+            {
+                pos = pos - 36;
+            }
+            return alpha[pos];
+        }
+    }
+}
